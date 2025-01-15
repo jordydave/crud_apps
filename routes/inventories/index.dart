@@ -21,18 +21,18 @@ FutureOr<Response> onRequest(RequestContext context) async {
 
 Future<Response> _get(RequestContext context) async {
   final dataSource = context.read<InventoriesDataSource>();
-  final inventories = await dataSource.readAll();
-  return Response.json(body: inventories);
+  final todos = await dataSource.readAll();
+  return Response.json(body: todos);
 }
 
 Future<Response> _post(RequestContext context) async {
   final dataSource = context.read<InventoriesDataSource>();
-  final inventory = Inventory.fromJson(
+  final todo = Inventory.fromJson(
     await context.request.json() as Map<String, dynamic>,
   );
 
   return Response.json(
-    body: await dataSource.create(inventory),
     statusCode: HttpStatus.created,
+    body: await dataSource.create(todo),
   );
 }

@@ -32,7 +32,10 @@ Future<Response> _get(RequestContext context, Inventory inventory) async {
 }
 
 Future<Response> _put(
-    RequestContext context, String id, Inventory inventory) async {
+  RequestContext context,
+  String id,
+  Inventory inventory,
+) async {
   final dataSource = context.read<InventoriesDataSource>();
   final updatedInventory = Inventory.fromJson(
     await context.request.json() as Map<String, dynamic>,
@@ -46,6 +49,7 @@ Future<Response> _put(
       price: updatedInventory.price,
     ),
   );
+
   return Response.json(body: newInventory);
 }
 
