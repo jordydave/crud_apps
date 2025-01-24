@@ -8,11 +8,8 @@ environment:
 
 dependencies:
   dart_frog: ^1.1.0
-  in_memory_inventories_data_source:
-    path: packages/in_memory_inventories_data_source
-  inventories_data_source:
-    path: packages/inventories_data_source
-
+  dio: ^5.7.0
+  
 dev_dependencies:
   http: ^1.2.2
   mocktail: ^1.0.3
