@@ -5,8 +5,11 @@ import 'package:inventories/settings.dart';
 Future<Response> onRequest(RequestContext context) async {
   try {
     final airtableService = AirtableService(airtableData);
-    final requestData = await context.request.json() as Map<String, dynamic>;
-    final recordId = requestData['recordId'] as String;
+    final recordId = context.request.uri.queryParameters['recordId'];
+
+    if (recordId == null) {
+      return Response(body: 'Missing recordId', statusCode: 400);
+    }
 
     await airtableService.deleteRecord(recordId: recordId);
     return Response.json(
