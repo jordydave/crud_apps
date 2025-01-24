@@ -38,6 +38,30 @@ class AirtableService {
     }
   }
 
+  /// Retrieves a record from the Airtable table by its ID.
+  ///
+  /// The [recordId] parameter is required to identify the record.
+  ///
+  /// Returns a [Map] containing the record data.
+  Future<Map<String, dynamic>> getRecordById({
+    required String recordId,
+  }) async {
+    try {
+      final result = await _dio.get<Map<String, dynamic>>(
+        'https://api.airtable.com/v0/${_airtableData.baseId}/${_airtableData.tableId}/$recordId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${_airtableData.token}',
+          },
+        ),
+      );
+
+      return result.data ?? {};
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   /// Retrieves all records from the Airtable table.
   ///
   /// Returns a [List] of [Map] objects, each representing a record.
